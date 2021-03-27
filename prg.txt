@@ -1,0 +1,157 @@
+
+program
+    get random
+    multiply 10
+    round
+    store answer
+
+    loop
+      ask Guess a number; any number 0-10:
+      newline
+
+      if answer
+       say You are correct!
+       newline
+       exit loop
+      end loop
+
+      say Nope!
+      newline
+    end loop
+
+
+
+
+
+    loop
+      get random
+      multiply 10
+      round
+      store correct
+
+      ask Number 0-10:
+      store youans
+      newline
+
+
+      say CPU guessed:
+
+      get random
+      multiply 10
+      round
+      store cpuans
+      print
+      newline
+
+
+      load cpuans
+      subtract correct
+      iflt 0
+        multiply -1
+      end if
+      store cpudiff
+
+
+      load youans
+      subtract correct
+      iflt 0
+        multiply -1
+      end if
+      store youdiff
+
+
+      say The correct answer was
+      load correct
+      print
+      newline
+
+      load youdiff
+      ifeq cpudiff
+        say You both were the same distance! You both lose
+        print
+        say points!
+        newline
+
+        load cpupoints
+        subtract youdiff
+        store cpupoints
+
+        load youpoints
+        subtract youdiff
+        store youpoints
+      end if
+
+      iflt cpudiff
+        say You were closer! You take
+        print
+        say points from the CPU!
+        newline
+
+        load cpupoints
+        subtract youdiff
+        store cpupoints
+
+        load youpoints
+        add youdiff
+        store youpoints
+      end if
+
+      ifgt cpudiff
+        say CPU was closer! CPU takes
+        print
+        say points from you!
+        newline
+
+        load youpoints
+        subtract cpudiff
+
+        load cpupoints
+        add cpudiff
+        store cpupoints
+      end if
+
+      load youpoints
+      iflt 0
+        load cpupoints
+        iflt 0
+          say You both had points go below 0! You both gain 10 points!
+          newline
+
+          load youpoints
+          add 10
+          store youpoints
+
+          load cpupoints
+          add 10
+          store cpupoints
+        end if
+
+        ifge 0
+          say Your points fell below 0! You lose!
+          newline
+          do printpoints
+          exit program
+        end if
+      end if
+
+      load cpupoints
+      iflt 0
+        say CPU points goes below 0! You win!
+        newline
+        do printpoints
+        exit program
+      end if
+    end loop
+end program
+
+program printpoints
+    say Your points:
+    load youpoints
+    print
+    newline
+
+    say CPU points:
+    load cpupoints
+    print
+    newline
+end if
